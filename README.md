@@ -1,0 +1,1 @@
+## This exercises used Xilinx Vivado 2018.2 and board Zybo
