@@ -37,36 +37,17 @@ entity bcd_paraller_adder_4bit_tb is
 
                 Cin <= '0';
 
-                A <= std_logic_vector(to_unsigned(8,16));
-                B <= std_logic_vector(to_unsigned(4,16));
-                wait for TIME_DELAY ;
-
-                A <= std_logic_vector(to_unsigned(16,16));
-                B <= std_logic_vector(to_unsigned(16,16));
-                wait for TIME_DELAY ;
-
-                A <= std_logic_vector(to_unsigned(20,16));
-                B <= std_logic_vector(to_unsigned(19,16));
-                wait for TIME_DELAY ;
-
-                A <= std_logic_vector(to_unsigned(19,16));
-                B <= std_logic_vector(to_unsigned(8,16));
-                wait for TIME_DELAY ;
-
-                A <= std_logic_vector(to_unsigned(100,16));
-                B <= std_logic_vector(to_unsigned(130,16));
-                wait for TIME_DELAY ;
-
-                A <= std_logic_vector(to_unsigned(279,16));
-                B <= std_logic_vector(to_unsigned(260,16));
-                wait for TIME_DELAY ;
-                --for i in 0 to 100 loop
-                  --  for j in 0 to 100 loop
-                    --    A <= std_logic_vector(to_unsigned(i,16));
-                      --  B <= std_logic_vector(to_unsigned(j,16));
-                       -- wait for TIME_DELAY ;
-                    --end loop;
-                --end loop;
+                for i in 0 to 9 loop
+                                   for j in 0 to 9 loop
+                                        for k in 0 to 9 loop
+                                            for l in 0 to 9 loop
+                                             A <= std_logic_vector(to_unsigned(0,4)) & std_logic_vector(to_unsigned(0,4)) & std_logic_vector(to_unsigned(i,4)) &std_logic_vector(to_unsigned(j,4)) ;
+                                             B <= std_logic_vector(to_unsigned(0,4)) & std_logic_vector(to_unsigned(0,4)) & std_logic_vector(to_unsigned(k,4)) &std_logic_vector(to_unsigned(l,4)) ;
+                                             wait for TIME_DELAY ;
+                                            end loop;
+                                        end loop;
+                                    end loop;
+                                end loop;
                         
                 A <= (others => '0');
                 B <= (others => '0');
