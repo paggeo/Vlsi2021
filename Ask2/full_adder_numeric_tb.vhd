@@ -52,4 +52,4 @@ entity full_adder_numeric_tb is
     
     end process;
     
-    end tb;
+    end architecture;

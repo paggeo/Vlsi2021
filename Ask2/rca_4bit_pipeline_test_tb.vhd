@@ -2,12 +2,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity rca_4bit_pipeline_tb IS
+entity rca_4bit_pipeline_test_tb IS
 end entity;
 
-architecture bench of rca_4bit_pipeline_tb IS
+architecture bench of rca_4bit_pipeline_test_tb IS
 
-    component rca_4bit_pipeline
+    component rca_4bit_pipeline_test
         port (
             a,b :in std_logic_vector(3 downto 0);
             cin , clock: in std_logic;
@@ -30,7 +30,7 @@ architecture bench of rca_4bit_pipeline_tb IS
     constant CLOCK_PERIOD : time := 10 ns;
 
     begin 
-    module: rca_4bit_pipeline
+    module: rca_4bit_pipeline_test
         port map (
             a=> a,
             b=>b,

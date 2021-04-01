@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity rca_4bit_pipeline IS
+entity rca_4bit_pipeline_test IS
 port (
     a,b :in std_logic_vector(3 downto 0);
     cin , clock: in std_logic;
@@ -11,7 +11,7 @@ port (
 );
 end entity;
 
-architecture structural of rca_4bit_pipeline is
+architecture structural of rca_4bit_pipeline_test is
     component full_adder_numeric
         port (
             a,b,cin :in std_logic_vector(0 downto 0);
@@ -19,6 +19,14 @@ architecture structural of rca_4bit_pipeline is
         );
 
     end component;
+
+    component generic_latch is
+        generic(N:integer :=2);
+         port ( 
+            d : in std_logic_vector (N-1 downto 0);
+            clock,reset : in std_logic ;
+            q : out std_logic_vector(N-1 downto 0)) ;
+    end component ;
     
     signal c1,c2,c3: STD_LOGIC;
     signal s0_0,s0_1,s0_2 :std_logic;
@@ -28,44 +36,6 @@ architecture structural of rca_4bit_pipeline is
     signal c1_reg ,c2_reg,c3_reg :std_logic;
 
     begin
-        process (clock)
-        begin 
-    
-              if rising_edge(clock) then 
-                
-                s(0) <= s0_2;
-                s0_2 <= s0_1 ;
-                s0_1<= s0_0;
-
-                s(1) <= s1_2;
-                s1_2 <= s1_1;
-                s1_0_a <= a(1);
-                s1_0_b <= b(1);
-
-                s(2) <= s2_2;
-
-                s2_1_a <= s2_0_a;
-                s2_1_b <= s2_0_b;
-                s2_0_a <= a(2);
-                s2_0_b <= b(2);
-
-                s3_2_a <= s3_1_a;
-                s3_2_b <= s3_1_b;
-                s3_1_a <= s3_0_a;
-                s3_1_b <= s3_0_b;
-                s3_0_a <= a(3);
-                s3_0_b <= b(3);
-
-                c1_reg <=c1;
-                c2_reg<= c2;
-                c3_reg<= c3;
-                
-                    
-              end if;
-        end process;
-        
-       
-       
        
         FA0:full_adder_numeric port map (
                     a(0)=>a(0),
@@ -74,6 +44,12 @@ architecture structural of rca_4bit_pipeline is
                     sum => s0_0,
                     carry => c1
                 );
+
+        latch0: generic_latch
+            generic map (N=>8)
+            port map (d(0) => s0_0,d(1)=>c1,d(2)=>a(1),d(3)=>b(1),d(4)=>a(2),d(5)=>b(2),d(6)=>a(3),d(7)=>b(3),clock=>clock,reset=>'0',
+                q(0) => s0_1,q(1)=>c1_reg,q(2)=>s1_0_a,q(3)=>s1_0_b,q(4)=>s2_0_a,q(5)=>s2_0_b,q(6)=>s3_0_a,q(7)=>s3_0_b);
+             
               
         FA1:full_adder_numeric port map (
                 a(0)=>s1_0_a,
@@ -82,6 +58,12 @@ architecture structural of rca_4bit_pipeline is
                 sum => s1_1 ,
                 carry => c2
             );
+
+        latch1: generic_latch
+            generic map (N=>7)
+            port map (d(0) => s0_1,d(1)=>s1_1,d(2)=>c2,d(3)=>s2_0_a,d(4)=>s2_0_b,d(5)=>s3_0_a,d(6)=>s3_0_b,clock=>clock,reset=>'0',
+                q(0) => s0_2,q(1)=>s1_2,q(2)=>c2_reg,q(3)=>s2_1_a,q(4)=>s2_1_b,q(5)=>s3_1_a,q(6)=>s3_1_b);
+
         FA2:full_adder_numeric port map (
                 a(0)=>s2_1_a,
                 b(0) => s2_1_b,
@@ -89,6 +71,12 @@ architecture structural of rca_4bit_pipeline is
                 sum => s2_2 ,
                 carry => c3
             );
+
+        latch2: generic_latch
+            generic map (N=>6)
+            port map (d(0) => s0_2,d(1)=>s1_2,d(2)=>s2_2,d(3)=>c3,d(4)=>s3_1_a,d(5)=>s3_1_b,clock=>clock,reset=>'0',
+                q(0) => s(0),q(1)=>s(1),q(2)=>s(2),q(3)=>c3_reg,q(4)=>s3_2_a,q(5)=>s3_2_b);
+
         FA3:full_adder_numeric port map (
                 a(0)=>s3_2_a,
                 b(0) => s3_2_b,

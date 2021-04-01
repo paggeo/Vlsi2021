@@ -11,13 +11,19 @@ port (
       );
 end entity;
 
-architecture dataflow of full_adder_numeric is
+architecture behavioral of full_adder_numeric is
 
 
 signal s1 : std_logic_vector(1 downto 0);
 
 begin
-      s1 <= ('0'& a) + ('0'& b) +('0'& cin);
+      
+      process (a,b,cin)
+      begin
+      
+            s1 <= ('0'& a) + ('0'& b) +('0'& cin);
+      
+      end process;
       carry <= s1(1);
       sum <= s1(0);
 

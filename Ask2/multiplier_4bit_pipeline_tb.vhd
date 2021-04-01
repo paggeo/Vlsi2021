@@ -18,7 +18,7 @@ entity multiplier_4bit_pipeline_tb is
         signal S : std_logic_vector (7 downto 0);
        signal clock : std_logic;
 
-        constant TIME_DELAY : time := 140 ns;
+        constant TIME_DELAY : time := 10 ns;
         constant CLOCK_PERIOD : time := 10 ns;
 
         begin 

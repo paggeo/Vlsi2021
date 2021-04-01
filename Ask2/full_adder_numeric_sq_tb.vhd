@@ -36,7 +36,7 @@ entity full_adder_numeric_sq_tb is
     simulation: process
     begin
 
-
+    reset <='0';
     for i  in 0 to 1 loop
         for j in 0 to 1 loop
             for k in 0 to 1 loop
