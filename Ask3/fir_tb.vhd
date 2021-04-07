@@ -15,11 +15,11 @@ architecture bench of fir_tb is
             x : in std_logic_vector(7 downto 0);
             y : out std_logic_vector(15 downto 0);
             valid_out : out std_logic;
-            en,we : in std_logic
+            en : in std_logic
         );
     end component;
     signal clk,rst,valid_in,valid_out: std_logic;
-    signal en,we : std_logic;
+    signal en : std_logic;
     signal x : std_logic_vector(7 downto 0);
     signal y : std_logic_vector(15 downto 0); 
 
@@ -28,17 +28,18 @@ architecture bench of fir_tb is
 
     begin 
         fir_module: fir 
-            port map (clk,rst,valid_in,x,y,valid_out,en,we);
+            port map (clk,rst,valid_in,x,y,valid_out,en);
 
         simulation : process
             begin
                 en <= '1';
+                rst <= '0';
 
                 for  i in 0 to 7 loop
-                    we<='1';
+                    valid_in<='1';
                     x <= std_logic_vector(to_unsigned(i,8));
                     wait for CLOCK_PERIOD;
-                    we<= '0';
+                    valid_in<= '0';
                     wait for TIME_DELAY;
                     end loop; 
             end process;

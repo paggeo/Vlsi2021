@@ -10,7 +10,7 @@ entity fir is
         x : in std_logic_vector(7 downto 0);
         y : out std_logic_vector(15 downto 0);
         valid_out : out std_logic;
-        en,we : in std_logic
+        en : in std_logic
     );
 end entity;
 
@@ -21,7 +21,8 @@ architecture structural of fir is
             rst : in std_logic;
             rom_address : out std_logic_vector(2 downto 0);
             ram_address : out std_logic_vector (2 downto 0);
-            mac_init : out std_logic
+            mac_init : out std_logic;
+            valid_out : out std_logic
             );
     end component;
 
@@ -74,13 +75,13 @@ architecture structural of fir is
 
 begin 
     control_unit_module : control_unit
-        port map(clk,rst,rom_address_control_unit,ram_address_control_unit,mac_init_control_unit);
+        port map(clk,rst,rom_address_control_unit,ram_address_control_unit,mac_init_control_unit,valid_out);
     rom_module : rom
         generic map(coeff_width => 8)
         port map (clk,en,rom_address_control_unit,rom_out_rom);
     ram_module : ram 
         generic map (data_width => 8)
-        port map (clk,rst,we,en,ram_address_control_unit,x,ram_out_ram);
+        port map (clk,rst,valid_in,en,ram_address_control_unit,x,ram_out_ram);
         
     mac_module : mac
         generic map (data_width => 8)
