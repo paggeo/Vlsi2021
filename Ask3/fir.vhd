@@ -22,7 +22,6 @@ architecture structural of fir is
             rom_address : out std_logic_vector(2 downto 0);
             ram_address : out std_logic_vector (2 downto 0);
             mac_init : out std_logic;
-            valid_out :out std_logic;
             we : out std_logic;
             en : out std_logic
             );
@@ -63,7 +62,8 @@ architecture structural of fir is
             rom_out : in std_logic_vector(data_width-1 downto 0);
             ram_out : in std_logic_vector(data_width-1 downto 0);
             mac_init : in std_logic;
-            y : out std_logic_vector(data_width*2+2 downto 0)
+            y : out std_logic_vector(data_width*2+2 downto 0);
+            valid_out : out std_logic
 
         );
     end component;
@@ -76,11 +76,19 @@ architecture structural of fir is
     signal ram_out_ram : std_logic_vector(7 downto 0);
     signal rom_out_rom : std_logic_vector(7 downto 0);
     signal en_control_unit,we_control_unit :std_logic;
+    signal mac_init_temp : std_logic;
 
 
 begin 
+    process (clk)
+    begin
+        if rising_edge(clk) then
+            mac_init_temp <= mac_init_control_unit;
+        end if;
+    end process;
+    
     control_unit_module : control_unit
-        port map(clk,rst,valid_in,rom_address_control_unit,ram_address_control_unit,mac_init_control_unit,valid_out,we_control_unit,en_control_unit);
+        port map(clk,rst,valid_in,rom_address_control_unit,ram_address_control_unit,mac_init_control_unit,we_control_unit,en_control_unit);
     rom_module : rom
         generic map(coeff_width => 8)
         port map (clk,en_control_unit,rom_address_control_unit,rom_out_rom);
@@ -90,5 +98,5 @@ begin
         
     mac_module : mac
         generic map (data_width => 8)
-        port map (clk,rst,rom_out_rom,ram_out_ram,mac_init_control_unit,y);
+        port map (clk,rst,rom_out_rom,ram_out_ram,mac_init_temp,y,valid_out);
    end architecture;

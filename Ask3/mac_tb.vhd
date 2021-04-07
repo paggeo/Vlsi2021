@@ -18,7 +18,8 @@ architecture bench  of mac_tb is
             rom_out : in std_logic_vector(data_width-1 downto 0);
             ram_out : in std_logic_vector(data_width-1 downto 0);
             mac_init : in std_logic;
-            y : out std_logic_vector(data_width*2-1 downto 0)
+            y : out std_logic_vector(data_width*2+2 downto 0);
+            valid_out : out std_logic 
 
         );
     end component;
@@ -26,26 +27,29 @@ architecture bench  of mac_tb is
     signal clk,rst:std_logic;
     signal mac_init : std_logic;
     signal rom_out,ram_out : std_logic_vector(7 downto 0);
-    signal y : std_logic_vector(15 downto 0);
+    signal y : std_logic_vector(18 downto 0);
+    signal valid_out : std_logic;
 
-    constant TIME_DELAY : time :=50 ns;
-    constant CLOCK_PERIOD : time := 30 ns;
+    constant TIME_DELAY : time :=10 ns;
+    constant CLOCK_PERIOD : time := 10 ns;
 
     begin 
         mac1 : mac 
             generic map ( data_width=> 8)
-            port map (clk,rst,rom_out,ram_out,mac_init,y);
+            port map (clk,rst,rom_out,ram_out,mac_init,y,valid_out);
 
         simulation: process 
             begin 
                 rst<='0';
                 mac_init<= '1';
+                rom_out<= std_logic_vector(to_unsigned(15,8));
+                ram_out<= std_logic_vector(to_unsigned(15,8));
                 wait for TIME_DELAY;
                 mac_init <= '0';
 
-                for i in 1 to 7 loop 
+                for i in 0 to 7 loop 
                     rom_out<= std_logic_vector(to_unsigned(i,8));
-                    ram_out<= std_logic_vector(to_unsigned(i,8));
+                    ram_out<= std_logic_vector(to_unsigned(1,8));
                     wait for TIME_DELAY;
                 end loop;
         end process;

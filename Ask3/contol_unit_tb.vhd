@@ -16,13 +16,12 @@ architecture bench  of control_unit_tb is
             rom_address : out std_logic_vector(2 downto 0);
             ram_address : out std_logic_vector (2 downto 0);
             mac_init : out std_logic;
-            valid_out :out std_logic;
             we : out std_logic;
             en : out std_logic
             );
     end component;
 
-    signal clk , rst,valid_in,valid_out,we,en : std_logic;
+    signal clk , rst,valid_in,we,en : std_logic;
     signal rom_address, ram_address : std_logic_vector(2 downto 0);
     signal mac_init : std_logic;
 
@@ -31,8 +30,8 @@ architecture bench  of control_unit_tb is
     constant CLOCK_PERIOD : time := 10 ns;
 
     begin   
-        control_unit1 : control_unit 
-            port map (clk,rst,valid_in,rom_address,ram_address,mac_init,valid_out,we,en);
+        control_unit_module : control_unit 
+            port map (clk,rst,valid_in,rom_address,ram_address,mac_init,we,en);
 
         simulation : process 
             begin 

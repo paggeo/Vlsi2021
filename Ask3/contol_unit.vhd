@@ -11,7 +11,6 @@ entity control_unit is
         rom_address : out std_logic_vector(2 downto 0);
         ram_address : out std_logic_vector (2 downto 0);
         mac_init : out std_logic;
-        valid_out : out std_logic;
         we : out std_logic;
         en : out std_logic
         );
@@ -19,8 +18,7 @@ end control_unit;
 
 architecture behavioral of control_unit is 
 
-    signal counter : std_logic_vector(3 downto 0):=(others=>'0');
-    signal idle : std_logic ;
+    signal counter : std_logic_vector(2 downto 0):=(others=>'0');
 
     begin 
         process(clk,rst)
@@ -39,39 +37,19 @@ architecture behavioral of control_unit is
                             ram_address <= counter;
                             counter <= counter + 1;
 
-                            if idle = '1' then 
-                                valid_out <= '1';
-                            else 
-                                valid_out <= '0';
-                            end if;
-                            idle <= '1';
-                            
-                            
                         elsif counter = 0 and valid_in= '0' then -- correct input not in 8 cyrcles
                             we <='0';
                             mac_init <= '1';
                             en <='0';
 
-                            if idle = '1' then 
-                                valid_out <= '1';
-                            else 
-                                valid_out <= '0';
-                            end if;
-                            idle <='0';
-
                         elsif counter /= 0 then 
                             en<='1';
-                            idle <= '1';
-                            valid_out<='0';
                             mac_init <= '0';
                             we <='0';
                             rom_address <= counter;
                             ram_address <= counter;
                             counter <= counter + 1;
                         end if;
-
-                        
-                        
                         
                     end if;
                 end if ;
