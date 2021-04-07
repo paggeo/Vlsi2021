@@ -13,6 +13,7 @@ architecture bench  of ram_tb is
         );
        port (
            clk  : in std_logic;
+           rst  : in std_logic;
            we   : in std_logic;				                --- memory write enable
            en   : in std_logic;				                --- operation enable
            addr : in std_logic_vector(2 downto 0);			    --- memory address
@@ -20,7 +21,7 @@ architecture bench  of ram_tb is
            do   : out std_logic_vector(data_width-1 downto 0));-- output data
    end component;
 
-   signal clk,we,en : std_logic;
+   signal clk,rst,we,en : std_logic;
    signal addr : std_logic_vector(2 downto 0);
    signal di : std_logic_vector(7 downto 0);
    signal do : std_logic_vector(7 downto 0);
@@ -31,12 +32,13 @@ architecture bench  of ram_tb is
    begin 
         ram1 : ram 
             generic map (data_width=>8)
-            port map (clk,we,en,addr,di,do);
+            port map (clk,rst,we,en,addr,di,do);
 
         simulation: process 
             begin
                 en <= '1';
                 we <= '1';
+                rst <= '0';
                 addr <=(others => '0' );
                 
                 for  i in 0 to 7 loop
@@ -46,6 +48,7 @@ architecture bench  of ram_tb is
                     end loop;
 
                 we <= '0' ;
+                rst <= '1';
                 wait for TIME_DELAY ;
 
                 for  i in 0 to 7 loop

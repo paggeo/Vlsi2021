@@ -7,16 +7,20 @@ entity control_unit is
     port (
         clk : in std_logic;
         rst : in std_logic;
+        valid_in : in std_logic;
         rom_address : out std_logic_vector(2 downto 0);
         ram_address : out std_logic_vector (2 downto 0);
         mac_init : out std_logic;
-        valid_out : out std_logic
+        valid_out : out std_logic;
+        we : out std_logic;
+        en : out std_logic
         );
 end control_unit;
 
 architecture behavioral of control_unit is 
 
-    signal counter : std_logic_vector(2 downto 0):=(others=>'0');
+    signal counter : std_logic_vector(3 downto 0):=(others=>'0');
+    signal idle : std_logic ;
 
     begin 
         process(clk,rst)
@@ -25,19 +29,48 @@ architecture behavioral of control_unit is
                     counter <= (others => '0');
                 else 
                     if rising_edge(clk) then 
-                        if counter = 0 then 
+
+                        if counter = 0 and valid_in = '1' then 
+                        -- correct input in 8 cyrcles
+                            en <= '1';
+                            we <='1';
                             mac_init <= '1';
-                            valid_out <= '0';
-                        elsif counter = 7 then
-                            mac_init <= '0';
-                            valid_out <= '1';
-                        else 
+                            rom_address <= counter;
+                            ram_address <= counter;
+                            counter <= counter + 1;
+
+                            if idle = '1' then 
+                                valid_out <= '1';
+                            else 
+                                valid_out <= '0';
+                            end if;
+                            idle <= '1';
+                            
+                            
+                        elsif counter = 0 and valid_in= '0' then -- correct input not in 8 cyrcles
+                            we <='0';
+                            mac_init <= '1';
+                            en <='0';
+
+                            if idle = '1' then 
+                                valid_out <= '1';
+                            else 
+                                valid_out <= '0';
+                            end if;
+                            idle <='0';
+
+                        elsif counter /= 0 then 
+                            en<='1';
+                            idle <= '1';
                             valid_out<='0';
                             mac_init <= '0';
+                            we <='0';
+                            rom_address <= counter;
+                            ram_address <= counter;
+                            counter <= counter + 1;
                         end if;
-                        counter <= counter + 1;
-                        rom_address <= counter;
-                        ram_address <= counter;
+
+                        
                         
                         
                     end if;
