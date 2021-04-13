@@ -41,6 +41,23 @@ architecture bench of fir_tb is
                     valid_in<= '0';
                     wait for TIME_DELAY;
                     end loop; 
+                rst <= '1';
+                valid_in<='1';
+                x <= std_logic_vector(to_unsigned(10,8));
+                wait for CLOCK_PERIOD;
+                rst <= '0';
+                valid_in<= '0';
+                wait for TIME_DELAY;
+
+                
+                valid_in<='1';
+                x <= std_logic_vector(to_unsigned(10,8));
+                wait for CLOCK_PERIOD;
+                valid_in<= '0';
+                wait for TIME_DELAY;
+                wait;
+                    
+
             end process;
 
 

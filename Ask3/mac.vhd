@@ -38,19 +38,23 @@ end process;
 
         process (clk,mac_init)
             begin 
-                if rising_edge(clk) then
-                    if mac_init = '1' and counter /= 6 then 
-                        counter <= (others => '0');
-                        valid_out <='0';
-                    elsif mac_init = '0' and counter = 6 then 
-                        counter <=(others => '0');
-                        valid_out <= '1';
-                    elsif mac_init = '1' and counter = 6 then 
-                        counter <=(others => '0');
-                        valid_out <= '1';
-                    else   
-                        counter <= counter+1;
-                        valid_out <= '0';     
+                if rst = '1' then 
+                    valid_out <= '0';
+                else 
+                    if rising_edge(clk) then
+                        if mac_init = '1' and counter /= 6 then 
+                            counter <= (others => '0');
+                            valid_out <='0';
+                        elsif mac_init = '0' and counter = 6 then 
+                            counter <=(others => '0');
+                            valid_out <= '1';
+                        elsif mac_init = '1' and counter = 6 then 
+                            counter <=(others => '0');
+                            valid_out <= '1';
+                        else   
+                            counter <= counter+1;
+                            valid_out <= '0';     
+                        end if;
                     end if;
                 end if;
            end process;
