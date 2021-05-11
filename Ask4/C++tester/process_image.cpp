@@ -1,119 +1,143 @@
 #include <iostream>
-#include <stdlib.h> 
-#include <ctime>
-#include <vector>
-#include <fstream>
 
 using namespace std;
 
-void print_vector(vector<vector<int>> &A,int N) {
-  for(int i=0;i<N;i++){
-      for(int j=0;j<N;j++){
-          cout<<A[i][j]<<" ";          
-      }
-      cout<<endl;
-  }
-}
+int main()
+{
+  int N;
+  cin >> N;
 
-int main(){
-
-    int N=4; 
-    //vector<vector<int>> Vec(N,vector<int> (N));
-    vector<vector<int>> Vec{
-        {4,4,4,4},
-        {4,4,4,4},
-        {4,4,4,4},
-        {4,4,4,4}
-    };
-    vector<vector<int>> Green(N,vector<int> (N));
-    vector<vector<int>> Blue(N,vector<int> (N));
-    vector<vector<int>> Red(N,vector<int> (N));
-
-    for(int i=0;i<N;i++){
-        for (int j=0;j<N;j++){
-            if(i%2==0&&j%2==0) { // this is GB line
-                
-                Green[i][j]=Vec[i][j];
-
-                if((j-1)<0) Blue[i][j]=Vec[i][j+1]/2;
-                else if ((j+1)>=N) Vec[i][j-1]/2;
-                else Blue[i][j]=(Vec[i][j-1]+Vec[i][j+1])/2;
-
-                if((i-1)<0) Red[i][j]=Vec[i+1][j]/2;
-                else if ((i+1)>=N) Red[i][j]=Vec[i-1][j]/2;
-                else Red[i][j]=(Vec[i-1][j]+Vec[i+1][j])/2;
-            }
-            if(i%2==0&&j%2!=0) { // this is a blue pixel
-                
-                Blue[i][j]=Vec[i][j];
-
-                if(((i-1)<0)&&(j-1)<0)          Green[i][j]=        (Vec[i+1][j]+Vec[i][j+1])/4;
-                else if(((i-1)<0)&&(j+1)>=N)    Green[i][j]=        (Vec[i+1][j]+Vec[i][j-1])/4;
-                else if(((i+1)>=N)&&(j-1)<0)    Green[i][j]=        (Vec[i-1][j]+Vec[i][j+1])/4;
-                else if(((i+1)>=N)&&(j+1)>=N)   Green[i][j]=        (Vec[i-1][j]+Vec[i][j-1])/4;
-                else if ((i-1)<0)               Green[i][j]=        (Vec[i+1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-                else if ((i+1)>=N)              Green[i][j]=        (Vec[i-1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-                else if ((j-1)<0)               Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j+1])/4;
-                else if ((j+1)>=0)              Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j-1])/4;
-                else                            Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-
-
-                if(((i-1)<0)&&(j-1)<0)          Red[i][j]=          Vec[i+1][j+1]/4;
-                else if(((i-1)<0)&&(j+1)>=N)    Red[i][j]=          Vec[i+1][j-1]/4;
-                else if(((i+1)>=N)&&(j-1)<0)    Red[i][j]=          Vec[i-1][j+1]/4;
-                else if(((i+1)>=N)&&(j+1)>=N)   Red[i][j]=          Vec[i-1][j-1]/4;
-                else if ((i-1)<0)               Red[i][j]=          (Vec[i+1][j-1]+Vec[i+1][j+1])/4;
-                else if ((i+1)>=N)              Red[i][j]=          (Vec[i-1][j-1]+Vec[i-1][j+1])/4;
-                else if ((j-1)<0)               Red[i][j]=          (Vec[i-1][j+1]+Vec[i+1][j+1])/4;
-                else if ((j+1)>=0)              Red[i][j]=          (Vec[i-1][j-1]+Vec[i+1][j-1])/4;
-                else                            Red[i][j]=          (Vec[i-1][j-1]+Vec[i-1][j+1]+Vec[i+1][j-1]+Vec[i+1][j+1])/4;
-                
-            }
-            if(i%2!=0&&j%2==0){ // this is red pixel
-                Red[i][j]=Vec[i][j];
-
-                if(((i-1)<0)&&(j-1)<0)          Green[i][j]=        (Vec[i+1][j]+Vec[i][j+1])/4;
-                else if(((i-1)<0)&&(j+1)>=N)    Green[i][j]=        (Vec[i+1][j]+Vec[i][j-1])/4;
-                else if(((i+1)>=N)&&(j-1)<0)    Green[i][j]=        (Vec[i-1][j]+Vec[i][j+1])/4;
-                else if(((i+1)>=N)&&(j+1)>=N)   Green[i][j]=        (Vec[i-1][j]+Vec[i][j-1])/4;
-                else if ((i-1)<0)               Green[i][j]=        (Vec[i+1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-                else if ((i+1)>=N)              Green[i][j]=        (Vec[i-1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-                else if ((j-1)<0)               Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j+1])/4;
-                else if ((j+1)>=0)              Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j-1])/4;
-                else                            Green[i][j]=        (Vec[i-1][j]+Vec[i+1][j]+Vec[i][j-1]+Vec[i][j+1])/4;
-
-                if(((i-1)<0)&&(j-1)<0)          Blue[i][j]=         Vec[i+1][j+1]/4;
-                else if(((i-1)<0)&&(j+1)>=N)    Blue[i][j]=         Vec[i+1][j-1]/4;
-                else if(((i+1)>=N)&&(j-1)<0)    Blue[i][j]=         Vec[i-1][j+1]/4;
-                else if(((i+1)>=N)&&(j+1)>=N)   Blue[i][j]=         Vec[i-1][j-1]/4;
-                else if ((i-1)<0)               Blue[i][j]=         (Vec[i+1][j-1]+Vec[i+1][j+1])/4;
-                else if ((i+1)>=N)              Blue[i][j]=         (Vec[i-1][j-1]+Vec[i-1][j+1])/4;
-                else if ((j-1)<0)               Blue[i][j]=         (Vec[i-1][j+1]+Vec[i+1][j+1])/4;
-                else if ((j+1)>=0)              Blue[i][j]=         (Vec[i-1][j-1]+Vec[i+1][j-1])/4;
-                else                            Blue[i][j]=         (Vec[i-1][j-1]+Vec[i-1][j+1]+Vec[i+1][j-1]+Vec[i+1][j+1])/4;
-                
-            }
-            if(i%2!=0&&j%2!=0) { // this is RG line
-                
-                Green[i][j]=Vec[i][j];
-
-                if((j-1)<0) Red[i][j]=Vec[i][j+1]/2;
-                else if ((j+1)>=N) Red[i][j]=Vec[i][j-1]/2;
-                else Red[i][j]=(Vec[i][j-1]+Vec[i][j+1])/2;
-
-                if((i-1)<0) Blue[i][j]=Vec[i+1][j]/2;
-                else if ((i+1)>=N) Blue[i][j]=Vec[i-1][j]/2;
-                else Blue[i][j]=(Vec[i-1][j]+Vec[i+1][j])/2;
-                
-                
-            }
-        }
-        
+  int A[N][N];
+  int G[N][N], B[N][N], R[N][N];
+  int i = 0, UL, UR, UC, LR, LL, LC, CR, CC, CL;
+  int j = 0;
+  for (int i = 0; i < N; i++)
+  {
+    for (int j = 0; j < N; j++)
+    {
+      cin >> A[i][j];
     }
-    cout<<"This is Blue:\n";
-    print_vector(Blue,N);
-    cout<<"\nThis is Green:\n";
-    print_vector(Green,N);
-    cout<<"\nThis is Red:\n";
-    print_vector(Red,N);
+  }
+
+  for (i = 0; i < N; i++)
+  {
+    for (j = 0; j < N; j++)
+    {
+
+      if (i == 0 or j == 0)
+      {
+        UL = 0;
+      }
+      else
+      {
+        UL = A[i - 1][j - 1];
+      }
+
+      if (i == 0)
+      {
+        UC = 0;
+      }
+      else
+      {
+        UC = A[i - 1][j];
+      }
+
+      if (i == 0 or j == N - 1)
+      {
+        UR = 0;
+      }
+      else
+      {
+        UR = A[i - 1][j + 1];
+      }
+
+      if (j == 0)
+      {
+        CL = 0;
+      }
+      else
+      {
+        CL = A[i][j - 1];
+      }
+
+      CC = A[i][j];
+
+      if (j == N - 1)
+      {
+        CR = 0;
+      }
+      else
+      {
+        CR = A[i][j + 1];
+      }
+
+      if (i == N - 1 or j == 0)
+      {
+        LL = 0;
+      }
+      else
+      {
+        LL = A[i + 1][j - 1];
+      }
+
+      if (i == N - 1)
+      {
+        LC = 0;
+      }
+      else
+      {
+        LC = A[i + 1][j];
+      }
+
+      if (i == N - 1 or j == N - 1)
+      {
+        LR = 0;
+      }
+      else
+      {
+        LR = A[i + 1][j + 1];
+      }
+
+      if (i % 2 == 0)
+      {
+        if (j % 2 == 0)
+        { // periptosi ii
+          G[i][j] = (CC);
+          B[i][j] = (CL + CR) / 2;
+          R[i][j] = (UC + LC) / 2;
+        }
+        else
+        { // periptosi iv
+          B[i][j] = (CC);
+          R[i][j] = (UL + UR + LL + LR) / 4;
+          G[i][j] = (UC + LC + CL + CR) / 4;
+        }
+      }
+      else
+      {
+        if (j % 2 == 0)
+        { // periptosi iii
+          R[i][j] = (CC);
+          B[i][j] = (UL + UR + LL + LR) / 4;
+          G[i][j] = (UC + LC + CL + CR) / 4;
+        }
+        else
+        { // periptosi i
+          G[i][j] = (CC);
+          B[i][j] = (UC + LC) / 2;
+          R[i][j] = (CL + CR) / 2;
+        }
+      }
+    }
+  }
+
+  for (i = 0; i < N; i++)
+  {
+    for (j = 0; j < N; j++)
+    {
+      cout << R[i][j] << " " << G[i][j] << " " << B[i][j] << " " << endl;
+    }
+  }
+
+  return 0;
 }

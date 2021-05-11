@@ -25,6 +25,7 @@ int main(int argc, char** argv){
         vector<vector<int>> Vec(N,vector<int> (N));
 
         ofstream myfile(argv[2]);
+        myfile<<N<<endl;
  
         for(int i=0; i<N;i++)
         {

@@ -1,0 +1,1 @@
+diff target.txt C++tester/correct_output/output8.txt

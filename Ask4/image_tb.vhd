@@ -41,7 +41,7 @@ end component;
    
     begin
         module : image 
-                generic map (Pixel_width=>8,N=>4)
+                generic map (Pixel_width=>8,N=>8)
                 port map (clock,reset,pixel_din,pixel_valid_in,new_image,image_finished,pixel_valid_out,r,g,b);
 
     process
