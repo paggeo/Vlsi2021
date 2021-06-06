@@ -1,0 +1,9 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../dvlsi2021_ask5_prj.srcs/sources_1/ip/fifo_generator_2048/sim/fifo_generator_2048.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

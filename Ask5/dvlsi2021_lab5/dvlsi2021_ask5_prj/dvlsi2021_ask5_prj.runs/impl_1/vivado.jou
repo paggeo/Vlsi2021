@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Mon Jun  7 01:14:40 2021
+# Process ID: 197875
+# Current directory: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/impl_1
+# Command line: vivado -log master_slave.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source master_slave.tcl -notrace
+# Log file: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/impl_1/master_slave.vdi
+# Journal file: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/impl_1/vivado.jou
+#-----------------------------------------------------------
+source master_slave.tcl -notrace

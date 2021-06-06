@@ -41,7 +41,7 @@ end component;
    
     begin
         module : image 
-                generic map (Pixel_width=>8,N=>8)
+                generic map (Pixel_width=>8,N=>64) -- You have to change this to the desire N size
                 port map (clock,reset,pixel_din,pixel_valid_in,new_image,image_finished,pixel_valid_out,r,g,b);
 
     process
@@ -54,7 +54,7 @@ end component;
         variable N:integer;
         
     begin
-    
+        -- Change this files to the selected path
         file_open(file_source, "/home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask4/source.txt", read_mode);
         file_open(file_target, "/home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask4/target.txt", write_mode);
 

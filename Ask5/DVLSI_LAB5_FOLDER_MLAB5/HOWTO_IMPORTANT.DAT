@@ -1,0 +1,17 @@
+STEP 1: Copy you local files ( <name>.bit, <name>.elf, ps7_init.tcl) in this folder.
+
+STEP 2: Open a terminal.
+
+STEP 3: Execute the command: xsdb
+
+STEP 4: On xsdb do: cd ./DVLSI_LAB5_FOLDER
+
+STEP 5: On xsdb do: source ./download_to_zybo.tcl. Your application will run on Zybo and a Terminal will display any message you print.
+
+STEP 6: When finished on xsdb execute the following commands in order: jtagterminal -stop, disconnect, exit. After exit command you should be back on the initial terminal.
+
+STEP 7: Now you can logout from the remote PC.
+
+
+
+

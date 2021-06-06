@@ -6,7 +6,7 @@ use ieee.numeric_std.all;
 entity image is
     generic (
         Pixel_width : natural := 8 ;
-        N : integer  
+        N : integer :=4 
     );
     port(
         clock: in std_logic;

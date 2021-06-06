@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Tue Jun  1 01:09:31 2021
+# Process ID: 3852038
+# Current directory: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/fifo_generator_2048_32_no_lat_synth_1
+# Command line: vivado -log fifo_generator_2048_32_no_lat.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source fifo_generator_2048_32_no_lat.tcl
+# Log file: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/fifo_generator_2048_32_no_lat_synth_1/fifo_generator_2048_32_no_lat.vds
+# Journal file: /home/georgepag4028/Desktop/Sxoli/Vlsi2021/Ask5/dvlsi2021_lab5/dvlsi2021_ask5_prj/dvlsi2021_ask5_prj.runs/fifo_generator_2048_32_no_lat_synth_1/vivado.jou
+#-----------------------------------------------------------
+source fifo_generator_2048_32_no_lat.tcl -notrace

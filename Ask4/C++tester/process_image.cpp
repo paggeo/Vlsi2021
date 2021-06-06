@@ -1,14 +1,15 @@
 #include <iostream>
 
 using namespace std;
+#define N 4
+int A[N][N];
+int G[N][N], B[N][N], R[N][N];
 
 int main()
 {
-  int N;
-  cin >> N;
-
-  int A[N][N];
-  int G[N][N], B[N][N], R[N][N];
+  int M;
+  cin >> M;
+  
   int i = 0, UL, UR, UC, LR, LL, LC, CR, CC, CL;
   int j = 0;
   for (int i = 0; i < N; i++)

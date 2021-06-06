@@ -1,0 +1,32 @@
+00:43:52 **** Auto Build of configuration Debug for project ask5 ****
+make pre-build main-build 
+a9-linaro-pre-build-step
+ 
+Building file: ../src/helloworld.c
+Invoking: ARM v7 gcc compiler
+arm-none-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -I../../ask5_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.o" -o "src/helloworld.o" "../src/helloworld.c"
+../src/helloworld.c: In function 'main':
+../src/helloworld.c:346:30: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 3 has type 'u32 {aka long unsigned int}' [-Wformat=]
+    printf("This is Rx[%d]:%llu\n",i,Rxtest[i]);
+                           ~~~^      ~~~~~~~~~
+                           %lu
+../src/helloworld.c:358:33: warning: format '%d' expects argument of type 'int', but argument 2 has type 'XTime {aka long long unsigned int}' [-Wformat=]
+   printf("This is post exefpga:%d\n\r",postExecCyclesFPGA);
+                                ~^
+                                %lld
+Finished building: ../src/helloworld.c
+ 
+Building target: ask5.elf
+Invoking: ARM v7 gcc linker
+arm-none-eabi-gcc -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -L../../ask5_bsp/ps7_cortexa9_0/lib -o "ask5.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+Finished building target: ask5.elf
+ 
+Invoking: ARM v7 Print Size
+arm-none-eabi-size ask5.elf  |tee "ask5.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  84652	   2712	  27344	 114708	  1c014	ask5.elf
+Finished building: ask5.elf.size
+ 
+
+00:43:52 Build Finished (took 206ms)
+

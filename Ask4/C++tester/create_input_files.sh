@@ -4,3 +4,6 @@
 ./create_random_image 32 unprocessed/random_image_unprocessed32.txt 
 ./create_random_image 64 unprocessed/random_image_unprocessed64.txt 
 ./create_random_image 128 unprocessed/random_image_unprocessed128.txt 
+./create_random_image 256 unprocessed/random_image_unprocessed256.txt
+./create_random_image 512 unprocessed/random_image_unprocessed512.txt  
+./create_random_image 1024 unprocessed/random_image_unprocessed1024.txt

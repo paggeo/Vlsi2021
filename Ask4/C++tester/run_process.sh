@@ -4,3 +4,6 @@
 ./process_image 32  <unprocessed/random_image_unprocessed32.txt  > correct_output/output32.txt
 ./process_image 64  <unprocessed/random_image_unprocessed64.txt  > correct_output/output64.txt
 ./process_image 128 <unprocessed/random_image_unprocessed128.txt > correct_output/output128.txt
+./process_image 256 <unprocessed/random_image_unprocessed128.txt > correct_output/output128.txt
+./process_image 512 <unprocessed/random_image_unprocessed512.txt > correct_output/output512.txt
+./process_image 1024 <unprocessed/random_image_unprocessed1024.txt > correct_output/output1024.txt

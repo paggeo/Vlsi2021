@@ -48,7 +48,7 @@ architecture bench of image_no_file_tb is
     begin
 
      module : image 
-            generic map (Pixel_width=>8,N=>4)
+            generic map (Pixel_width=>8,N=>8)
             port map (clock,reset,pixel_din,pixel_valid_in,new_image,image_finished,pixel_valid_out,r,g,b);
 
         simulation: process 
@@ -66,10 +66,26 @@ architecture bench of image_no_file_tb is
 
                 new_image <= '0';
                 
-                for i in 2 to 16 loop 
+                for i in 2 to 32 loop
                     pixel_din <= std_logic_vector(to_unsigned(i,8));
                     wait for TIME_DELAY;
-                end loop;
+                 end loop;
+                    pixel_valid_in <= '0';
+                    pixel_din <= std_logic_vector(to_unsigned(0,8));
+                                
+                    wait for TIME_DELAY ;
+                pixel_valid_in <= '1';
+                for i in 33 to 64 loop
+                    pixel_din <= std_logic_vector(to_unsigned(i,8));
+                    wait for TIME_DELAY;
+                end loop;                    
+                   
+                --for j in 0 to (1024*4) loop
+                    --for i in 0 to 255 loop 
+                        --pixel_din <= std_logic_vector(to_unsigned(i,8));
+                        --wait for TIME_DELAY;
+                    --end loop;
+                --end loop;
 
                 pixel_valid_in <= '0';
                 pixel_din <= std_logic_vector(to_unsigned(0,8));

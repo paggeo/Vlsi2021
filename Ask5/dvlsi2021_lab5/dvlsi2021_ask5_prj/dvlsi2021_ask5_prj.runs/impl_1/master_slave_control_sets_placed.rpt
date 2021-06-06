@@ -1,0 +1,95 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.2 (lin64) Build 2258646 Thu Jun 14 20:02:38 MDT 2018
+| Date         : Mon Jun  7 01:15:18 2021
+| Host         : Linux-pag running 64-bit Ubuntu 20.04.2 LTS
+| Command      : report_control_sets -verbose -file master_slave_control_sets_placed.rpt
+| Design       : master_slave
+| Device       : xc7z010
+-----------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Number of unique control sets                            |    30 |
+| Unused register locations in slices containing registers |    50 |
++----------------------------------------------------------+-------+
+
+
+2. Histogram
+------------
+
++--------+--------------+
+| Fanout | Control Sets |
++--------+--------------+
+|      4 |            1 |
+|    16+ |           29 |
++--------+--------------+
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              96 |           13 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             166 |           26 |
+| Yes          | No                    | No                     |             376 |           44 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             688 |           81 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++------------------+-------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+------------------+----------------+
+|   Clock Signal   |                                                   Enable Signal                                                   |                                           Set/Reset Signal                                          | Slice Load Count | Bel Load Count |
++------------------+-------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+------------------+----------------+
+|  clock_IBUF_BUFG |                                                                                                                   | T_valid_out_i_1_n_0                                                                                 |                1 |              4 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_22_6                                                                                       |                2 |             16 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_21_7                                                                                       |                1 |             16 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_20_2                                                                                       |                3 |             16 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_12_3                                                                                       |                3 |             16 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_10_4                                                                                       |                2 |             16 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           | module/B_01_0                                                                                       |                2 |             16 |
+|  clock_IBUF_BUFG | fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/cntr_en                            | reset_IBUF                                                                                          |                3 |             24 |
+|  clock_IBUF_BUFG | module/j_counter[0]_i_2_n_0                                                                                       | module/j_counter[0]_i_1_n_0                                                                         |                4 |             32 |
+|  clock_IBUF_BUFG | module/i_counter[0]_i_2_n_0                                                                                       | module/i_counter[0]_i_1_n_0                                                                         |                4 |             32 |
+|  clock_IBUF_BUFG | fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/E[0]                       | reset_IBUF                                                                                          |                5 |             44 |
+|  clock_IBUF_BUFG | module/p_0_in_10                                                                                                  | module/cycle_counter[0]_i_1_n_0                                                                     |                6 |             44 |
+|  clock_IBUF_BUFG | module/fifo_2/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/grss.rsts/E[0]                        | reset_IBUF                                                                                          |                5 |             44 |
+|  clock_IBUF_BUFG | module/fifo_1/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/grss.rsts/E[0]                        | reset_IBUF                                                                                          |                4 |             44 |
+|  clock_IBUF_BUFG | module/fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/grss.rsts/E[0]                        | reset_IBUF                                                                                          |                5 |             44 |
+|  clock_IBUF_BUFG | module/fifo_1/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/E[0]                        | reset_IBUF                                                                                          |                4 |             44 |
+|  clock_IBUF_BUFG | module/fifo_2/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/E[0]                        | reset_IBUF                                                                                          |                5 |             44 |
+|  clock_IBUF_BUFG | module/fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/E[0]                        | reset_IBUF                                                                                          |                5 |             44 |
+|  clock_IBUF_BUFG | fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwss.wsts/gcc0.gc0.count_reg[10][0]          | reset_IBUF                                                                                          |                4 |             44 |
+|  clock_IBUF_BUFG | T_valid_in_IBUF                                                                                                   | reset_IBUF                                                                                          |                6 |             44 |
+|  clock_IBUF_BUFG | module/rtemp2_8                                                                                                   |                                                                                                     |                7 |             48 |
+|  clock_IBUF_BUFG |                                                                                                                   | module/p_0_in                                                                                       |                7 |             48 |
+|  clock_IBUF_BUFG | module/gtemp3_9                                                                                                   |                                                                                                     |                7 |             48 |
+|  clock_IBUF_BUFG | module/gtemp0_1                                                                                                   |                                                                                                     |                6 |             48 |
+|  clock_IBUF_BUFG | module/btemp1_5                                                                                                   |                                                                                                     |                5 |             48 |
+|  clock_IBUF_BUFG |                                                                                                                   | reset_IBUF                                                                                          |                8 |             54 |
+|  clock_IBUF_BUFG |                                                                                                                   | fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/empty_fwft_i |               10 |             60 |
+|  clock_IBUF_BUFG | fifo_0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/goreg_bm.dout_i_reg[31][0] | reset_IBUF                                                                                          |                8 |             64 |
+|  clock_IBUF_BUFG |                                                                                                                   |                                                                                                     |               13 |             96 |
+|  clock_IBUF_BUFG | module/itemp[0]_i_1_n_0                                                                                           |                                                                                                     |               20 |            200 |
++------------------+-------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------+------------------+----------------+
+
+

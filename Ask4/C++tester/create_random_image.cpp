@@ -26,17 +26,12 @@ int main(int argc, char** argv){
 
         ofstream myfile(argv[2]);
         myfile<<N<<endl;
- 
-        for(int i=0; i<N;i++)
-        {
-            for(int j=0; j<N;j++)
-                {
-                    Num =rand()%256;
-                    Vec[i][j]=Num;
-                    myfile <<Vec[i][j]<<" ";
-                }        
-            myfile <<endl;
-        }  
+
+        for (int i = 1; i<=1024*1024 ; i++){
+            if ((i-1)%256==0) myfile<<endl;
+            myfile<<i<<" ";
+        }
+        myfile<<0<<" "<<endl;
 
     }
 }

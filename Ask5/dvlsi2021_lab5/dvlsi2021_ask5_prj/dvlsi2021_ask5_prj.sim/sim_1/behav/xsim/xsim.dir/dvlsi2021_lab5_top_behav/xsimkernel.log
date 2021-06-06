@@ -1,0 +1,7 @@
+Running: xsim.dir/dvlsi2021_lab5_top_behav/xsimk -simmode gui -wdb dvlsi2021_lab5_top_behav.wdb -simrunnum 0 -socket 35269
+Design successfully loaded
+Design Loading Memory Usage: 79840 KB (Peak: 79840 KB)
+Design Loading CPU Usage: 70 ms
+Simulation completed
+Simulation Memory Usage: 184736 KB (Peak: 227112 KB)
+Simulation CPU Usage: 190 ms
