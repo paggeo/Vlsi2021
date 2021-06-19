@@ -1,0 +1,99 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+
+entity ram_7_tb is 
+    end entity;
+
+architecture bench of ram_7_tb is 
+    component ram_7  is
+        generic (
+            data_width : integer := 4;
+            ram_depth : integer := 4;
+            ram_addr  : integer := 2
+        );
+        port (
+            clock       : in std_logic;
+            reset       : in std_logic;
+            ce          : in std_logic;
+            rw          : in std_logic;
+            addr        : in std_logic_vector(ram_addr - 1 downto 0);
+            data_in     : in std_logic_vector(data_width - 1 downto 0);
+            data_out    : out std_logic_vector(data_width - 1 downto 0)
+        ) ;
+    end component;
+    
+    signal clock ,reset , ce ,rw : std_logic;
+    signal addr  :  std_logic_vector(1 downto 0 );
+    signal data_in : std_logic_vector(3 downto 0 );
+    signal data_out : std_logic_vector(3 downto 0);
+
+    constant CLOCK_PERIOD : time := 10 ns;
+
+    begin 
+        ram: ram_7 
+            generic map (data_width => 4 , ram_depth => 4 , ram_addr => 2)
+            port map (clock , reset,ce , rw, addr,data_in,data_out);
+            
+        simulation : process
+            begin 
+                reset <= '1'; 
+                wait for 10 ns;
+
+                reset <= '0';
+
+                ce <= '1';
+                rw <= '1';
+                addr    <= std_logic_vector(to_unsigned(0,2)) ;
+                
+                wait for 5 ns;
+                data_in <=  std_logic_vector(to_unsigned(5,4)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(1,2)) ;
+                wait for 5 ns;
+                data_in <=  std_logic_vector(to_unsigned(8,4)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(2,2)) ;
+                wait for 5 ns;
+                data_in <=  std_logic_vector(to_unsigned(7,4)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(3,2)) ;
+                wait for 5 ns;
+                data_in <=  std_logic_vector(to_unsigned(10,4)) ;
+                wait for 10 ns;
+                ce<= '0';
+                data_in <=  std_logic_vector(to_unsigned(0,4)) ;
+                wait for 45 ns;
+                ce <= '1';
+                rw <= '0';
+                
+
+                addr    <= std_logic_vector(to_unsigned(0,2)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(1,2)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(2,2)) ;
+                wait for 10 ns;
+
+                addr    <= std_logic_vector(to_unsigned(3,2)) ;
+                wait for 20 ns;
+                
+                ce <= '0';
+                wait ;
+                
+        end process;
+
+        generate_clock : process
+            begin
+                clock <= '0';
+                wait for CLOCK_PERIOD/2;
+                clock <= '1';
+                wait for CLOCK_PERIOD/2;
+        end process;
+end architecture;
