@@ -60,6 +60,28 @@ architecture bench of car_parking_10_tb is
                     wait for 50 ns;
                 end loop;
 
+
+                for i in 1 to 10 loop
+                    reset<= '0';
+                    wait for 50 ns;
+                    
+                    A<= '1';
+                    B<= '0';
+                    wait for 50 ns;
+
+                    A<= '0';
+                    B<= '0';
+                    wait for 50 ns;
+
+                    A<= '0';
+                    B<= '1';
+                    wait for 50 ns;
+
+                    A<= '1';
+                    B<= '1';
+                    wait for 50 ns;
+                end loop;
+
                 wait;
                 
 

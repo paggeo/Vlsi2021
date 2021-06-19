@@ -9,7 +9,7 @@ entity ram_7_tb is
 architecture bench of ram_7_tb is 
     component ram_7  is
         generic (
-            data_width : integer := 4;
+            data_width : integer := 8;
             ram_depth : integer := 4;
             ram_addr  : integer := 2
         );
@@ -23,17 +23,20 @@ architecture bench of ram_7_tb is
             data_out    : out std_logic_vector(data_width - 1 downto 0)
         ) ;
     end component;
-    
+    constant data_width : integer:= 8;
+    constant ram_depth : integer := 4096;
+    constant ram_addr : integer := 12;
+
     signal clock ,reset , ce ,rw : std_logic;
-    signal addr  :  std_logic_vector(1 downto 0 );
-    signal data_in : std_logic_vector(3 downto 0 );
-    signal data_out : std_logic_vector(3 downto 0);
+    signal addr  :  std_logic_vector(ram_addr-1 downto 0 );
+    signal data_in : std_logic_vector(data_width-1 downto 0 );
+    signal data_out : std_logic_vector(data_width-1 downto 0);
 
     constant CLOCK_PERIOD : time := 10 ns;
 
     begin 
         ram: ram_7 
-            generic map (data_width => 4 , ram_depth => 4 , ram_addr => 2)
+            generic map (data_width => data_width , ram_depth => ram_depth , ram_addr => ram_addr)
             port map (clock , reset,ce , rw, addr,data_in,data_out);
             
         simulation : process
@@ -45,43 +48,43 @@ architecture bench of ram_7_tb is
 
                 ce <= '1';
                 rw <= '1';
-                addr    <= std_logic_vector(to_unsigned(0,2)) ;
+                addr    <= std_logic_vector(to_unsigned(0,ram_addr)) ;
                 
                 wait for 5 ns;
-                data_in <=  std_logic_vector(to_unsigned(5,4)) ;
+                data_in <=  std_logic_vector(to_unsigned(5,data_width)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(1,2)) ;
+                addr    <= std_logic_vector(to_unsigned(1,ram_addr)) ;
                 wait for 5 ns;
-                data_in <=  std_logic_vector(to_unsigned(8,4)) ;
+                data_in <=  std_logic_vector(to_unsigned(8,data_width)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(2,2)) ;
+                addr    <= std_logic_vector(to_unsigned(2,ram_addr)) ;
                 wait for 5 ns;
-                data_in <=  std_logic_vector(to_unsigned(7,4)) ;
+                data_in <=  std_logic_vector(to_unsigned(7,data_width)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(3,2)) ;
+                addr    <= std_logic_vector(to_unsigned(3,ram_addr)) ;
                 wait for 5 ns;
-                data_in <=  std_logic_vector(to_unsigned(10,4)) ;
+                data_in <=  std_logic_vector(to_unsigned(10,data_width)) ;
                 wait for 10 ns;
                 ce<= '0';
-                data_in <=  std_logic_vector(to_unsigned(0,4)) ;
+                data_in <=  std_logic_vector(to_unsigned(0,data_width)) ;
                 wait for 45 ns;
                 ce <= '1';
                 rw <= '0';
                 
 
-                addr    <= std_logic_vector(to_unsigned(0,2)) ;
+                addr    <= std_logic_vector(to_unsigned(0,ram_addr)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(1,2)) ;
+                addr    <= std_logic_vector(to_unsigned(1,ram_addr)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(2,2)) ;
+                addr    <= std_logic_vector(to_unsigned(2,ram_addr)) ;
                 wait for 10 ns;
 
-                addr    <= std_logic_vector(to_unsigned(3,2)) ;
+                addr    <= std_logic_vector(to_unsigned(3,ram_addr)) ;
                 wait for 20 ns;
                 
                 ce <= '0';

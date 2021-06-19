@@ -20,7 +20,7 @@ end entity;
 
 architecture behavioral of car_parking_10 is 
     
-    type state_type is (idle,blockA,between,freeA,parking_out,error_state);
+    type state_type is (idle,blockA,between,freeA,blockB,between_out,freeB);
 
     signal next_state,current_state : state_type := idle ;
     signal counter : std_logic_vector(parking_capacity-1 downto 0):=(others=>'0');
@@ -52,6 +52,8 @@ architecture behavioral of car_parking_10 is
                                         next_state <= idle;                                    
                                     elsif A='0' and B = '1' then 
                                         next_state<=blockA;
+                                    elsif A= '1' and B = '0' then 
+                                        next_state <= blockB;
                                     else 
                                         next_state <= idle;
                                     end if;
@@ -64,6 +66,15 @@ architecture behavioral of car_parking_10 is
                                         next_state <= blockA;
                                     end if;
 
+                    when blockB =>  if A = '1' and B= '0' then 
+                                        next_state <= blockB ;
+                                    elsif A = '0' and B = '0' then
+                                        next_state <= between_out ;
+                                    else 
+                                        next_state <= blockB;
+                                    end if;
+                    
+
                     when between =>     if A = '0' and B = '0' then 
                                             next_state <= between ;
                                         elsif A = '1' and B = '0' then 
@@ -72,6 +83,14 @@ architecture behavioral of car_parking_10 is
                                             next_state <= between;
                                         end if;
 
+                    when between_out =>     if A = '0' and B = '0' then 
+                                                next_state <= between_out ;
+                                            elsif A = '0' and B = '1' then 
+                                                next_state <= freeB ;
+                                            else 
+                                                next_state <= between_out;
+                                            end if;
+
                     when freeA =>   if A='1' and B = '0' then
                                         next_state <= freeA ;
                                     elsif A= '1' and B = '1' then 
@@ -79,6 +98,15 @@ architecture behavioral of car_parking_10 is
                                         counter <= counter +1;
                                     else 
                                         next_state <= freeA;
+                                    end if;
+                    
+                    when freeB =>   if A='0' and B = '1' then
+                                        next_state <= freeB ;
+                                    elsif A= '1' and B = '1' then 
+                                        next_state <= idle ;
+                                        counter <= counter -1;
+                                    else 
+                                        next_state <= freeB;
                                     end if;
 
                     when others =>  next_state <= idle;
